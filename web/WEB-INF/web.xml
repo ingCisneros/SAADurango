@@ -212,6 +212,10 @@
         <servlet-name>ServletInventarios</servlet-name>
         <servlet-class>InvenUnidades.ServletInventarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>EntradaManual</servlet-name>
+        <servlet-class>Fb.EntradaManual</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SubirInvenServlet</servlet-name>
         <url-pattern>/inventariosUnidades/SubirInvenServlet</url-pattern>
@@ -423,6 +427,10 @@
     <servlet-mapping>
         <servlet-name>ServletInventarios</servlet-name>
         <url-pattern>/inventariosUnidades/ServletInventarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EntradaManual</servlet-name>
+        <url-pattern>/EntradaManual</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

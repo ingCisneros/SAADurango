@@ -91,11 +91,12 @@
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="css/select2.css" rel="stylesheet">
+        
         <!---->
         <title>SIE Sistema de Ingreso de Entradas</title>
     </head>
-    <body onLoad="foco();
-            mueveReloj();">
+    <body onLoad="prov();">
         <div class="container">
             <h1>SIALSS</h1>
             <h4>SISTEMA INTEGRAL DE ADMINISTRACIÓN Y LOGÍSTICA PARA SERVICIOS DE SALUD</h4>
@@ -134,38 +135,17 @@
                         <br/>
                         <div class="row">
                             <label for="prov" class="col-sm-2 control-label">Proveedor</label>
-                            <input type="text" class="hidden" id="provee" name="provee" placeholder="Proveedor" readonly onKeyPress="return tabular(event, this)" value="<%=provee%>" />                             
-                            <div class="col-sm-3">
-                                <select class="form-control" name="list_provee" onKeyPress="return tabular(event, this)" id="list_provee" onchange="proveedor();">
+                            <input type="hidden" class="form-control" id="provee" name="provee" />                            
+                            <div class="col-sm-5">
+                                <select  class="form-control " name="list_provee"   id="list_provee" >
                                     <option value="">Proveedor</option>
-                                    <%
-                                        try {
-                                            con.conectar();
-                                            ResultSet rset = con.consulta("SELECT F_ClaProve,F_NomPro FROM tb_proveedor");
-                                            while (rset.next()) {
-                                    %>
-                                    <option value="<%=rset.getString("F_ClaProve")%>"
-                                            <%
-                                                if (rset.getString("F_ClaProve").equals(provee)) {
-                                                    out.println("selected");
-                                                }
-                                            %>
-                                            ><%=rset.getString("F_NomPro")%></option>
-                                    <%
-                                            }
-                                            con.cierraConexion();
-                                        } catch (Exception e) {
-                                        }
-                                    %>
                                 </select>
 
                             </div>
                             <div class="col-sm-1">                                      
-                                <button class="btn btn-block btn-primary glyphicon glyphicon-refresh" type = "submit" value = "refresh" name = "accion" ></button>
+                                <button class="btn btn-block btn-primary glyphicon glyphicon-refresh" id="btnProve" type="button" ></button>
                             </div>
-                            <%
-
-                            %>
+                            
                             <div class="col-sm-1">
                                 <label for="prov" class="col-sm-1 control-label"><a href="catalogo.jsp" target="_blank">Alta</a></label>
                             </div>
@@ -183,10 +163,7 @@
                         <div class="row">
                             <label for="codigo" class="col-sm-1 control-label">C.B</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="codigo" name="codigo"  placeholder="C. B." maxlength="13" onkeydown="if (event.keyCode == 13) {
-                                            document.getElementById('claveCod').click();
-                                            return false;
-                                        }"  />
+                                <input type="text" class="form-control" id="codigo" name="codigo"  placeholder="C. B." maxlength="13"  />
                             </div>
                             <div class="col-sm-2">
                                 <button class="btn btn-block btn-primary" type = "submit" value = "codigo" id="claveCod" name = "accion">Código</button>
@@ -223,10 +200,7 @@
                             <div class="col-sm-3">
                                 <textarea class="form-control" name="descripci" id="descripci" readonly onKeyPress="return tabular(event, this)"><%=descrip%></textarea>
                             </div>
-                            <label for="descr1" class="hidden">Presentación</label>
-                            <div class="hidden">
-                                <textarea class="form-control" name="Presentaci" id="Presentaci" readonly onKeyPress="return tabular(event, this)"><%=PresPro%></textarea>
-                            </div>
+                          
 
                         </div>
                         <br/>
@@ -585,9 +559,9 @@
                                 if (Cuenta == 0) {
                             %>
                             <img />
-                            <button class="btn btn-block btn-primary" type="submit" name="accion" id="accion" value="capturar" onclick="validaCapturaVacios();">Capturar</button>
+                            <button class="btn btn-block btn-primary" type="submit" name="accion" id="accion" onclick="return (validarVacios());" value="capturar" >Capturar</button>
                             <%} else {%>
-                            <button class="btn btn-block btn-primary" type="submit" name="accion" id="accion" value="capturarcb" onclick="return (validaCapturaVacioscb());">Capturar</button>
+                            <button class="btn btn-block btn-primary" type="submit" name="accion" id="accion" onclick="return (ValidarVaciosCb());" value="capturarcb" >Capturar</button>
                             <%}%>
                             <!-- En duda -->
                         </div>
@@ -693,4 +667,118 @@
 <script src="js/bootstrap.js"></script>
 <script src="js/jquery-ui-1.10.3.custom.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
+<script src="js/select2.js"></script>
+<script src="js/Fb/Provedores.js"></script>
 
+<script>
+                    $('#formulario1').submit(function () {
+                        document.getElementById('imgCarga').style.display = "block";
+                        $('#accion').css('display', 'none');
+                    });
+                    
+                                        
+                    function validarVacios()
+                    {
+                        
+                        var missinginfo = "";
+                        if ($("#folio_remi").val() === "") {
+                            missinginfo += "\n El campo Folio Remisión no debe de estar vacío";
+                        }
+
+                        if ($("#orden").val() === "") {
+                            missinginfo += "\n El campo Número Compra no debe de estar vacío";
+                        }
+                        if ($("#provee").val() === "") {
+                            missinginfo += "\n El campo Proveedor no debe de estar vacío";
+                        }
+                        if ($("#clave1").val() === "") {
+                            missinginfo += "\n El campo Clave no debe de estar vacío";
+                        }
+                        if ($("#cb").val() === "") {
+                            missinginfo += "\n El campo Código Barra no debe de estar vacío";
+                        }
+                        if ($("#Marca").val() === "") {
+                            missinginfo += "\n El campo Marca no debe de estar vacío";
+                        }
+                        if ($("#Lote").val() === "") {
+                            missinginfo += "\n El campo Lote no debe de estar vacío";
+                        }
+                        if ($("#cdd").val() === "") {
+                            missinginfo += "\n El campo Caducidad no debe de estar vacío";
+                        }
+                        if ($("#fdd").val() === "") {
+                            missinginfo += "\n El campo Fabricación no debe de estar vacío";
+                        }
+                        if ($("#Piezas").val() === "" || $("#Piezas").val() === "0") {
+                            var caja = parseInt(0);
+                        }
+
+                        if (missinginfo !== "") {
+                            missinginfo = "\n TE HA FALTADO INTRODUCIR LOS SIGUIENTES DATOS PARA ENVIAR PETICIÓN DE SOPORTE:\n" + missinginfo + "\n\n ¡INGRESA LOS DATOS FALTANTES Y TRATA OTRA VEZ!\n";
+                            alert(missinginfo);
+
+                            return false;
+                        } else {
+                            if (parseInt(caja) === 0) {
+                                missinginfo = "\n El total de piezas no puede ser \'0\'";
+                                alert(missinginfo);
+                                return false;
+                            }
+                            return true;
+                        }
+                        
+                    }
+                    
+                    function ValidarVaciosCb()
+                    {
+                        var missinginfo = "";
+                        if ($("#folio_remi").val() === "") {
+                            missinginfo += "\n El campo Folio Remisión no debe de estar vacío";
+                        }
+                        if ($("#orden").val() === "") {
+                            missinginfo += "\n El campo Número Compra no debe de estar vacío";
+                        }
+                        if ($("#provee").val() === "") {
+                            missinginfo += "\n El campo Proveedor no debe de estar vacío";
+                        }
+                        if ($("#clave1").val() === "") {
+                            missinginfo += "\n El campo Clave no debe de estar vacío";
+                        }
+                        if ($("#cb").val() === "") {
+                            missinginfo += "\n El campo Código Barra no debe de estar vacío";
+                        }
+                        if ($("#Marca").val() === "") {
+                            missinginfo += "\n El campo Marca no debe de estar vacío";
+                        }
+                        if ($("#Lote").val() === "") {
+                            missinginfo += "\n El campo Lote no debe de estar vacío";
+                        }
+                        if ($("#cdd").val() === "") {
+                            missinginfo += "\n El campo Caducidad no debe de estar vacío";
+                        }
+                        if ($("#fdd").val() === "") {
+                            missinginfo += "\n El campo Fabricación no debe de estar vacío";
+                        }
+                        if ($("#Piezas").val() === "" || $("#Piezas").val() === "0") {
+                            var caja = parseInt(0);
+                        }
+
+                        if (missinginfo !== "") {
+                            missinginfo = "\n TE HA FALTADO INTRODUCIR LOS SIGUIENTES DATOS PARA ENVIAR PETICIÓN DE SOPORTE:\n" + missinginfo + "\n\n ¡INGRESA LOS DATOS FALTANTES Y TRATA OTRA VEZ!\n";
+                            alert(missinginfo);
+
+                            return false;
+                        } else {
+                            if (parseInt(caja) === 0) {
+                                missinginfo = "\n El total de piezas no puede ser \'0\'";
+                                alert(missinginfo);
+                                return false;
+                            }
+                            return true;
+                        }
+                        
+                    }
+                    
+                    
+
+</script> 

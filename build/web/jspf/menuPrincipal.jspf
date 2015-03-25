@@ -23,11 +23,11 @@
                             if (tipo.equals("2") || tipo.equals("3") || tipo.equals("1") || tipo.equals("10")) {
                         %>
                         <li><a href="/SAADurango/SAP/cargarOrdenCompra.jsp">Subir Ordenes de Compra</a></li>
-                        <li class="divider"></li>
+                        <!--li class="divider"></li>
                         <li><a href="/SAADurango/capturaISEM.jsp">Captura de Órdenes de Compra</a></li>
-                        <li class="divider"></li>
+                        <li class="divider"></li-->
 
-                        <li><a href="/SAADurango/captura.jsp">Entrada Manual</a></li>
+                        <!--li><a href="/SAADurango/captura.jsp">Entrada Manual</a></li-->
                         <li><a href="/SAADurango/compraAuto2.jsp">Entrada Automática OC</a></li>
                         <li class="divider"></li>
                         <li><a href="/SAADurango/hh/compraAuto3.jsp">HANDHELD | Entrada Automática OC</a></li>

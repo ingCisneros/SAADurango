@@ -131,7 +131,7 @@
                     <td>Caducidad</td>
                     <td>Ubicación</td>
                     <td>Piezas</td>
-                    <td></td>
+                    <!--td></td-->
                 </tr>
             </thead>
             <tbody>
@@ -153,14 +153,14 @@
                     <td><%=rset2.getString("F_FecCad")%></td>
                     <td><%=rset2.getString("F_DesUbi")%></td>
                     <td><%=formatter.format(rset2.getInt("F_ExiLot"))%></td>
-                    <td>
+                    <!--td>
                         <form action="../Ubicaciones/indexValida.jsp" method="post">
                             <input name="folio" value="<%=rset2.getString("F_FolLot")%>" class="hidden" />
                             <input name="ubicacion" value="<%=rset2.getString("F_Ubica")%>" class="hidden" />
                             <input name="id" value="<%=rset2.getString("F_IdLote")%>" class="hidden" />
                             <button class="btn btn-block btn-warning btn-sm" id="folio" name="accion" value="Modificar"><span class="glyphicon glyphicon-edit"></span></button>
                         </form>
-                    </td>
+                    </td-->
                 </tr>
                 <%
                         }

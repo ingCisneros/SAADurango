@@ -48,7 +48,7 @@ public class ConectionDB {
          this.driverClassName = "org.gjt.mm.mysql.Driver";*/
         this.usuario = "root";
         this.clave = "eve9397";
-        this.url = "jdbc:mysql://localhost:3306/gnklmex_durango";
+        this.url = "jdbc:mysql://localhost:3300/gnklmex_durango";
         this.driverClassName = "org.gjt.mm.mysql.Driver";
     }
 

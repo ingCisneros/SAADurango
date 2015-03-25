@@ -12,10 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/SISTEMASDGO/Documents/NetBeansProjects/SAADurango/src/java/conn/ConectionDB.java</file>
-            <file>file:/C:/Users/SISTEMASDGO/Documents/NetBeansProjects/SAADurango/src/java/Servlet/ServletK.java</file>
-            <file>file:/C:/Users/SISTEMASDGO/Documents/NetBeansProjects/SAADurango/src/java/servlets/login.java</file>
-            <file>file:/C:/Users/SISTEMASDGO/Documents/NetBeansProjects/SAADurango/src/java/servlets/Caratula.java</file>
+            <file>file:/home/anonimus/NetBeansProjects/SAA/src/java/conn/conection.java</file>
+            <file>file:/home/anonimus/NetBeansProjects/SAA/src/java/Servlet/ServletK.java</file>
+            <file>file:/home/anonimus/NetBeansProjects/SAA/web/hh/leerInsRedist.jsp</file>
+            <file>file:/home/anonimus/NetBeansProjects/SAA/src/java/conn/ConectionDBInv.java</file>
+            <file>file:/home/anonimus/NetBeansProjects/SAA/web/hh/ubicacionesConsultas.jsp</file>
         </group>
     </open-files>
 </project-private>
