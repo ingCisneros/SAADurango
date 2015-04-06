@@ -44,7 +44,7 @@ public class RequerimientosUnidades extends HttpServlet {
                         con.conectar();
                         ResultSet rset = con.consulta("select F_ClaPro from tb_unireq where F_ClaUni = '" + request.getParameter("F_ClaUni") + "' and F_Status=0");
                         while (rset.next()) {
-                            con.insertar("update tb_unireq set F_PiezasReq = '" + request.getParameter(rset.getString("F_ClaPro")) + "' where F_ClaPro = '" + rset.getString("F_ClaPro") + "' and F_ClaUni = '" + request.getParameter("F_ClaUni") + "' and F_Status='0'");
+                            con.insertar("update tb_unireq set F_CajasReq = '" + request.getParameter(rset.getString("F_ClaPro")) + "' where F_ClaPro = '" + rset.getString("F_ClaPro") + "' and F_ClaUni = '" + request.getParameter("F_ClaUni") + "' and F_Status='0'");
                         }
                         con.cierraConexion();
                     } catch (Exception e) {

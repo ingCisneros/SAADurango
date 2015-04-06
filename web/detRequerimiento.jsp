@@ -103,13 +103,13 @@
                     try {
 
                         con.conectar();
-                        ResultSet rset = con.consulta("SELECT M.F_ClaPro,M.F_DesPro,REQ.F_CajasReq, REQ.F_PiezasReq FROM tb_unireq REQ INNER JOIN tb_medica M ON REQ.F_ClaPro=M.F_ClaPro WHERE F_ClaUni='" + Clave + "' and F_Status =0");
+                        ResultSet rset = con.consulta("SELECT M.F_ClaPro,M.F_DesPro,REQ.F_CajasReq FROM tb_unireq REQ INNER JOIN tb_medica M ON REQ.F_ClaPro=M.F_ClaPro WHERE F_ClaUni='" + Clave + "' and F_Status =0");
                         while (rset.next()) {
                 %>
                 <tr class="odd gradeX">
                     <td><%=rset.getString(1)%></td>
                     <td><%=rset.getString(2)%></td>
-                    <td ><small><input name="<%=rset.getString(1)%>" type="number" class="text-right form-control" value="<%=rset.getInt(4)%>" /></small></td>
+                    <td ><small><input name="<%=rset.getString(1)%>" type="number" class="text-right form-control" value="<%=rset.getInt(3)%>" /></small></td>
                 </tr>
                 <%
                         }

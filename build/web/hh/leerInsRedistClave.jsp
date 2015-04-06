@@ -84,7 +84,7 @@
             <h4>Redistribución</h4>
             <form action="leerInsRedistClave.jsp" method="post">
                 <a class="btn btn-default" href="insumoNuevoRedist.jsp">Regresar</a>
-                <button class="btn btn-success" type="submit" name="UbiAnt" value="PorUbicar">Por Ubicar</button>
+                <button class="btn btn-success" type="submit" name="UbiAnt" value="NUEVA">Por Ubicar</button>
             </form>
             
             <form action="leerInsRedistClave.jsp" method="post">

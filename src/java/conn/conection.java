@@ -33,7 +33,7 @@ public class conection {
       public conection(){
         this.UsuarioBD="root";
         this.Password="eve9397";
-        this.Url="jdbc:mysql://localhost:3306/gnklmex_isem";
+        this.Url="jdbc:mysql://localhost:3300/gnklmex_durango";
         this.DriverClassName="org.gjt.mm.mysql.Driver";
     }
       

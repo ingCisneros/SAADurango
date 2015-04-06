@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -118,7 +120,24 @@ public class LeeExcel {
                     } catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                } else {
+                } else if (j == 2) {
+                    try {
+                        String fecha = ((vectorCellEachRowData.get(j).toString()) + "");
+                        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
+                        Date fec = null;
+                        
+                        fec=format.parse(fecha);
+                        
+                        format.applyPattern("yyyy-MM-dd");
+                        fecha=format.format(fec);
+                        
+                        
+                        qry = qry + "'" + fecha + "' , ";
+                    } catch (Exception e) {
+                    }
+                }
+                
+                else if (j == 3) {
                     try {
                         String Clave = ((int) Double.parseDouble(vectorCellEachRowData.get(j).toString()) + "");
                         qry = qry + "'" + Clave.trim() + "' , ";
@@ -126,7 +145,7 @@ public class LeeExcel {
                     }
                 }
             }
-            qry = qry + "curdate(), 0, '0')"; // agregar campos fuera del excel
+            qry = qry + "0, '0')"; // agregar campos fuera del excel
             try {
                 con.conectar();
                 try {

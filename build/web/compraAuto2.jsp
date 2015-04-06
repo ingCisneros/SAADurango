@@ -155,6 +155,7 @@
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/datepicker3.css" rel="stylesheet">
+        <link href="css/select2.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <!---->
@@ -176,8 +177,7 @@
                         <h4>Proveedor</h4>
                     </label>
                     <div class="col-sm-5">
-                        <select class="form-control" name="Proveedor" id="Proveedor" onchange="SelectProve(this.form);
-                                document.getElementById('Fecha').focus()">
+                        <select class="form-control" name="Proveedor" id="Proveedor">
                             <option value="">--Proveedor--</option>
                             <%                                try {
                                     con.conectar();
@@ -212,7 +212,7 @@
                         <h4>&Oacute;rdenes de Compra: </h4>
                     </label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="NoCompra" onchange="this.form.submit();">
+                        <select class="form-control" id="compNo" name="NoCompra" onchange="this.form.submit();">
                             <option value="">-- Proveedor -- Orden de Compra --</option>
                             <%
                                 String fecha1 = "";
@@ -384,7 +384,7 @@
                                             }
                                             if (contadorLotes > 1) {
                                                 //Mas de 1 lote
-                                        %>
+%>
                                         <td>
                                             <input type="text" value="<%=Lote%>" class="form-control" name="lot" id="lot" onkeypress="return tabular(event, this)"/>
                                             <select class="form-control" name="list_lote" id="list_lote"  onchange="cambiaLoteCadu(this);" onkeypress="return tabular(event, this)">
@@ -1027,13 +1027,21 @@
         <script src="js/bootstrap.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/bootstrap-datepicker.js"></script>
+        <script src="js/select2.js"></script>
         <script src="js/funcIngresos.js"></script>
 
         <script type="text/javascript">
 
                                 $(window).scrollTop(400);
 
-                                $('#FormInsumo').submit(function() {
+                                $("#Proveedor").select2();
+                                $("#compNo").select2();
+                                $("#Proveedor").change(function () {
+                                   
+                                    $("#FechaOrden").focus();
+
+                                });
+                                $('#FormInsumo').submit(function () {
 
                                     document.getElementById('imgCarga').style.display = "block";
                                     $('#accion').css('display', 'none');
@@ -1043,11 +1051,11 @@
                                     var F_FolRemi = $('#F_FolRemi_Modal').val();
                                     $('#F_FolRemi').val(F_FolRemi);
                                     var confirmacion = confirm('Desea confirmar la Remisión?')
-                                    if(confirmacion){
+                                    if (confirmacion) {
                                         $('#btnConfirmaRemision').click();
                                     }
                                     return false;
-                                    
+
                                 }
 
                                 function checkea(obj) {
@@ -1093,7 +1101,7 @@
                                     //return false;
                                 }
 
-                                $(function() {
+                                $(function () {
                                     $("#Fecha").datepicker();
                                     $("#Fecha").datepicker('option', {dateFormat: 'dd/mm/yy'});
                                 });
@@ -1140,7 +1148,7 @@
                                 var formatNumber = {
                                     separador: ",", // separador para los miles
                                     sepDecimal: '.', // separador para los decimales
-                                    formatear: function(num) {
+                                    formatear: function (num) {
                                         num += '';
                                         var splitStr = num.split('.');
                                         var splitLeft = splitStr[0];
@@ -1151,7 +1159,7 @@
                                         }
                                         return this.simbol + splitLeft + splitRight;
                                     },
-                                    new : function(num, simbol) {
+                                    new : function (num, simbol) {
                                         this.simbol = simbol || '';
                                         return this.formatear(num);
                                     }

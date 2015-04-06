@@ -117,7 +117,7 @@
                             </div>
                         </div>
 
-                        <button class="btn btn-block btn-primary" type="submit" name="accion" value="guardarGlobal" onclick="return valida_alta();">Generar Concentrado</button> 
+                                    <button class="btn btn-block btn-primary" type="submit" name="accion" value="guardarGlobal" onclick="return validaRemision();">Generar Concentrado</button> 
                         <br/><br/>
                         <button class="btn btn-block btn-danger" type="submit" name="accion" value="cancelar" onclick="return confirm('¿Seguro que desea CANCELAR esta orden?');">Cancelar</button> 
                     </form>
@@ -235,6 +235,14 @@
                                 $('#datosProv').dataTable();
                             });
                             function validaRemision() {
+                                var fec = $("#FecFab").val();
+                                
+                                if(fec=="")
+                                {
+                                    alert("Seleccione una fecha de entrega porfavor");
+                                    return false;
+                                }
+                                
                                 var confirmacion = confirm('Seguro que desea generar los Folios');
                                 if (confirmacion === true) {
                                     $('#myModal').modal();
