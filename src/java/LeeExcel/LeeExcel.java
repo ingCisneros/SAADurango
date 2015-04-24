@@ -2,25 +2,24 @@ package LeeExcel;
 
 import conn.ConectionDB;
 import java.io.FileInputStream;
-import java.sql.ResultSet;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
+import clases.facAuto;
 /**
  *
  * @author Indra Hidayatulloh
  */
 public class LeeExcel {
 
+    facAuto facturar = new facAuto();
+    
     private Vector vectorDataExcelXLSX = new Vector();
     ConectionDB con = new ConectionDB();
 
@@ -68,12 +67,36 @@ public class LeeExcel {
 
     public void displayDataExcelXLSX(Vector vectorData) {
         // Looping every row data in vector
+        String claveUni = "";
 
+        for (int i = 0; i < 1; i++) {
+            Vector vectorCellEachRowData = (Vector) vectorData.get(i);
+            for (int j = 0; j < 1; j++) {
+                try {
+                    String Clave = (vectorCellEachRowData.get(j).toString() + "").trim();
+                    NumberFormat formatter = new DecimalFormat("0000");
+                    Clave = formatter.format(Double.parseDouble(Clave));
+                    claveUni = Clave;
+                } catch (Exception e) {
+                }
+            }
+        }
+        try {
+                    con.conectar();
+                    try {
+                       con.insertar("DELETE FROM tb_invTemp WHERE F_IdUni='"+claveUni+"'");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    con.cierraConexion();
+                }
+            catch (Exception e) {
+                }
         for (int i = 0; i < vectorData.size(); i++) {
             Vector vectorCellEachRowData = (Vector) vectorData.get(i);
-            String qry = "insert into tb_unireq values (";
+            String qry = "insert into tb_invTemp values (0,";
             // looping every cell in each row
-            for (int j = 0; j < 4; j++) {
+            for (int j = 0; j < 5; j++) {
 
                 if (j == 0) {
                     try {
@@ -91,7 +114,7 @@ public class LeeExcel {
                     } catch (Exception e) {
                     }
                 } else if (j == 1) {
-                    System.out.println("algo");
+
                     try {
                         String ClaPro = ((vectorCellEachRowData.get(j).toString()) + "");
                         DecimalFormat formatter = new DecimalFormat("0000.00");
@@ -99,40 +122,41 @@ public class LeeExcel {
                         custom.setDecimalSeparator('.');
                         custom.setGroupingSeparator(',');
                         formatter.setDecimalFormatSymbols(custom);
-                        ClaPro = formatter.format(Double.parseDouble(ClaPro));
-                        String[] punto = ClaPro.split("\\.");
-                        System.out.println(punto.length);
-                        if (punto.length > 1) {
-                            System.out.println(ClaPro + "***" + punto[0] + "////" + punto[1]);
-                            if (punto[1].equals("01")) {
-                                ClaPro = agrega(punto[0]) + ".01";
-                            } else if (punto[1].equals("02")) {
-                                ClaPro = agrega(punto[0]) + ".02";
-                            } else if (punto[1].equals("00")) {
-                                ClaPro = agrega(punto[0]);
-                            } else {
-                                ClaPro = agrega(punto[0]);
-                            }
-                            System.out.println(ClaPro);
-                        }
-                        qry = qry + "'" + agrega(ClaPro) + "' , ";
+                         String[] punto1 = ClaPro.split("\\.");
+                        int alfa = 0;
 
-                    } catch (Exception e) {
+                        for (int u = 0; u < punto1.length; u++) {
+                            alfa++;
+                        }
+
+                        if (alfa == 2) {
+
+                            ClaPro = formatter.format(Double.parseDouble(ClaPro));
+                            String[] punto = ClaPro.split("\\.");
+                            System.out.println(punto.length);
+                            if (punto.length > 1) {
+                                System.out.println(ClaPro + "***" + punto[0] + "////" + punto[1]);
+                                if (punto[1].equals("01")) {
+                                    ClaPro = agrega(punto[0]) + ".01";
+                                } else if (punto[1].equals("02")) {
+                                    ClaPro = agrega(punto[0]) + ".02";
+                                } else if (punto[1].equals("00")) {
+                                    ClaPro = agrega(punto[0]);
+                                } else {
+                                    ClaPro = agrega(punto[0]);
+                                }
+                                System.out.println(ClaPro);
+                            }
+                        }
+                            qry = qry + "'" + agrega(ClaPro) + "' , ";
+                            
+                        }catch (Exception e) {
                         System.out.println(e.getMessage());
                     }
-                } else if (j == 2) {
+                    }else if (j == 2) {
                     try {
-                        String fecha = ((vectorCellEachRowData.get(j).toString()) + "");
-                        SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-                        Date fec = null;
-                        
-                        fec=format.parse(fecha);
-                        
-                        format.applyPattern("yyyy-MM-dd");
-                        fecha=format.format(fec);
-                        
-                        
-                        qry = qry + "'" + fecha + "' , ";
+                        String Pz = ((int) Double.parseDouble(vectorCellEachRowData.get(j).toString()) + "");
+                        qry = qry + "'" + Pz.trim() + "' , ";
                     } catch (Exception e) {
                     }
                 }
@@ -144,20 +168,42 @@ public class LeeExcel {
                     } catch (Exception e) {
                     }
                 }
-            }
-            qry = qry + "0, '0')"; // agregar campos fuera del excel
-            try {
-                con.conectar();
-                try {
-                    con.insertar(qry);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
+                else if (j == 4) {
+                    try {
+                        String Clave = ((int) Double.parseDouble(vectorCellEachRowData.get(j).toString()) + "");
+                        qry = qry + "'" + Clave.trim() + "' ,";
+                    } catch (Exception e) {
+                    }
                 }
-                con.cierraConexion();
-            } catch (Exception e) {
+                }
+                qry = qry + "0)"; // agregar campos fuera del excel
+                try {
+                    con.conectar();
+                    try {
+                        con.insertar(qry);
+                        
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    con.cierraConexion();
+                } catch (Exception e) {
+                }
             }
+        
+            try {
+                    con.conectar();
+                    try {
+                       facturar.requerimiento(claveUni);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    con.cierraConexion();
+                }
+            catch (Exception e) {
+                }
         }
-    }
+
+    
 
     public String agrega(String clave) {
         String clave2 = "";

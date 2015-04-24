@@ -96,7 +96,7 @@
     Class.forName("com.mysql.jdbc.Driver").newInstance();
     conexion = con.getConn();
     /*Establecemos la ruta del reporte*/
-    File reportFile = new File(application.getRealPath("reportes/Marbete.jasper"));
+    File reportFile = new File(application.getRealPath("/reportes/Marbete.jasper"));
     /* No enviamos parámetros porque nuestro reporte no los necesita asi que escriba 
      cualquier cadena de texto ya que solo seguiremos el formato del método runReportToPdf*/
     Map parameters = new HashMap();

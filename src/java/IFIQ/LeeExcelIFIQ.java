@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
 import java.util.Iterator;
 import java.util.Vector;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -65,7 +66,31 @@ public class LeeExcelIFIQ {
 
     public void displayDataExcelXLSX(Vector vectorData) {
         // Looping every row data in vector
-
+String claveUni = "";
+          for (int i = 0; i < 1; i++) {
+            Vector vectorCellEachRowData = (Vector) vectorData.get(i);
+            for (int j = 0; j < 1; j++) {
+                try {
+                    String Clave = (vectorCellEachRowData.get(j).toString() + "").trim();
+                    NumberFormat formatter = new DecimalFormat("0000");
+                    Clave = formatter.format(Double.parseDouble(Clave));
+                    claveUni = Clave;
+                } catch (Exception e) {
+                }
+            }
+        }
+         try {
+                    con.conectar();
+                    try {
+                       con.insertar("DELETE FROM tb_ifiq WHERE F_ClaCli='"+claveUni+"'");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                    con.cierraConexion();
+                }
+            catch (Exception e) {
+                }
+        
         for (int i = 0; i < vectorData.size(); i++) {
             Vector vectorCellEachRowData = (Vector) vectorData.get(i);
 
@@ -79,6 +104,17 @@ public class LeeExcelIFIQ {
             custom.setDecimalSeparator('.');
             custom.setGroupingSeparator(',');
             formatter.setDecimalFormatSymbols(custom);
+            String[] punto1 = ClaPro.split("\\.");
+            int alfa=0;
+            
+            for(int u=0; u<punto1.length;u++)
+            {
+                alfa++;
+            }
+                      
+            if(alfa==2)
+            {          
+           
             ClaPro = formatter.format(Double.parseDouble(ClaPro));
             String[] punto = ClaPro.split("\\.");
             System.out.println(punto.length);
@@ -92,6 +128,7 @@ public class LeeExcelIFIQ {
                 } else {
                     ClaPro = agrega(punto[0]);
                 }
+            }
             }
             //qry = qry + "'" + agrega(ClaPro) + "' , ";
 
@@ -142,6 +179,26 @@ public class LeeExcelIFIQ {
             clave2 = clave;
         }
         return clave2;
+    }
+    
+    
+    public boolean esAlfa(String cla){
+     boolean simon;
+     
+        try 
+        {
+            Integer.parseInt(cla);
+            simon=true;
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+            simon=false;
+        }
+     
+    
+    
+    return simon;
     }
 
 }

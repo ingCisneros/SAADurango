@@ -858,7 +858,7 @@
                             <h2>Confirmación</h2>
                             <div class="row">
                                 <h4 class="col-sm-6">
-                                    Ingrese Orden de Compra:</h4>
+                                    Ingrese número de factura:</h4>
                                 <div class="col-sm-6">
                                     <input class="form-control" required id="F_FolRemi_Modal" />
                                 </div>
@@ -1036,6 +1036,7 @@
 
                                 $("#Proveedor").select2();
                                 $("#compNo").select2();
+                                $("#list_marca").select2();
                                 $("#Proveedor").change(function () {
                                    
                                     $("#FechaOrden").focus();
@@ -1049,6 +1050,12 @@
 
                                 function validaConfirmaModal() {
                                     var F_FolRemi = $('#F_FolRemi_Modal').val();
+                                    if(F_FolRemi==='')
+                                    {
+                                        alert("Ingrese un número válido de factura porfavor");
+                                        return false;
+                                        
+                                    }
                                     $('#F_FolRemi').val(F_FolRemi);
                                     var confirmacion = confirm('Desea confirmar la Remisión?')
                                     if (confirmacion) {

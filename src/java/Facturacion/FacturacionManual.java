@@ -5,6 +5,7 @@
  */
 package Facturacion;
 
+import Dao.unidadDao;
 import conn.*;
 import Inventario.Devoluciones;
 import java.io.IOException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import servlets.Facturacion;
 import ISEM.*;
+import ImplDao.unidadDaoImpl;
 import Modula.RequerimientoModula;
 import java.sql.SQLException;
 
@@ -314,7 +316,7 @@ public class FacturacionManual extends HttpServlet {
                 try {
                     con.conectar();
                     RequerimientoModula reqMod = new RequerimientoModula();
-                    reqMod.enviaRequerimiento((String) sesion.getAttribute("F_IndGlobal"));
+                    //reqMod.enviaRequerimiento((String) sesion.getAttribute("F_IndGlobal"));
                     con.insertar("update tb_facttemp set F_StsFact = '0' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
                     con.cierraConexion();
                     sesion.setAttribute("F_IndGlobal", null);
@@ -334,8 +336,14 @@ public class FacturacionManual extends HttpServlet {
             }
             if (request.getParameter("accion").equals("AgregarClave")) {
                 try {
+                    unidadDao u = new unidadDaoImpl();
+                    String Uni= (String) sesion.getAttribute("ClaCliFM");
+                    int un= Integer.parseInt(Uni);
+                    Uni=u.tipUni(un);
+                    
                     con.conectar();
-                    con.insertar("insert into tb_facttemp values('" + (String) sesion.getAttribute("F_IndGlobal") + "','" + (String) sesion.getAttribute("ClaCliFM") + "','" + request.getParameter("IdLot") + "','" + request.getParameter("Cant") + "','" + (String) sesion.getAttribute("FechaEntFM") + "','3','0','','" + request.getParameter("Cant") + "')");
+                    
+                    con.insertar("insert into tb_facttemp values('" + (String) sesion.getAttribute("F_IndGlobal") + "','" + (String) sesion.getAttribute("ClaCliFM") + "','" + request.getParameter("IdLot") + "','" + request.getParameter("Cant") + "','" + (String) sesion.getAttribute("FechaEntFM") + "','3','0','','" + request.getParameter("Cant") + "','"+Uni+"')");
                     con.cierraConexion();
                     response.sendRedirect("facturacionManual.jsp");
                 } catch (Exception e) {

@@ -64,101 +64,46 @@
 
             <div>
                 <h3>Revisión de Concentrados por Proveedor</h3>
-                <div class="row">
-                    <form action="reimpRutaConcentrado.jsp" method="post" target="_blank">
-                        <h4 class="col-sm-4">Seleccione fecha para concentrado de ruta:</h4>
-                        <div class="col-sm-2">
-                            <input type="date" class="form-control" required="" name="F_FecSur">
-                        </div>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary btn-block">Generar</button>
-                        </div>
-                    </form>
-                </div>
+
                 <br />
                 <div class="panel panel-primary">
+                    <form id="frmCons" action="concentrado" method="post" >
                     <div class="panel-body">
-                        <table class="table table-bordered table-striped" id="datosCompras">
-                            <thead>
-                                <tr>
-                                    <td>No. Folio</td>
-                                    <td>Punto de entrega</td>
-                                    <td>Orden de Compra</td>
-                                    <td>Folio Admon</td>
-                                    <td>Folio Venta</td>
-                                    <td>Marbetes</td>
-                                    <td>Excel</td>
-                                    <td>Cancelar</td>
-                                    <!--td>Reenviar</td-->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <%
-                                    try {
-                                        con.conectar();
-                                        try {
-                                            ResultSet rset = con.consulta("SELECT u.F_NomCli, DATE_FORMAT(f.F_FecEnt, '%d/%m/%Y') as FecEnt, l.F_ClaPro,	l.F_ClaLot,	DATE_FORMAT(l.F_FecCad, '%d/%m/%Y'),	(f.F_Cant+0) as F_Cant,	l.F_Ubica,	f.F_IdFact,	l.F_Cb,	p.F_Pzs,	(f.F_Cant DIV p.F_Pzs),	(f.F_Cant MOD p.F_Pzs) FROM	tb_facttemp f,	tb_lote l,	tb_uniatn u,	tb_pzxcaja p WHERE	f.F_IdLot = l.F_IdLote AND f.F_ClaCli = u.F_ClaCli AND p.F_ClaPro = l.F_ClaPro GROUP BY f.F_IdFact;");
-                                            while (rset.next()) {
-                                %>
-                                <tr>
-
-                                    <td><%=rset.getString("F_IdFact")%></td>
-                                    <td><%=rset.getString("F_NomCli")%></td>
-                                    <td><%=rset.getString("FecEnt")%></td>
-                                    <td>
-                                        <form action="reimpGlobalReq.jsp" target="_blank">
-                                            <input class="hidden" name="fol_gnkl" value="<%=rset.getString("F_IdFact")%>">
-                                            <button class="btn btn-block btn-primary">Imprimir</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="reimpGlobalReqVenta.jsp" target="_blank">
-                                            <input class="hidden" name="fol_gnkl" value="<%=rset.getString("F_IdFact")%>">
-                                            <button class="btn btn-block btn-primary">Imprimir</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <form action="reimpGlobalMarbetes.jsp" target="_blank">
-                                            <input class="hidden" name="fol_gnkl" value="<%=rset.getString("F_IdFact")%>">
-                                            <button class="btn btn-block btn-primary">Imprimir</button>
-                                        </form>
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-block btn-primary" href="gnrConcentrado.jsp?fol_gnkl=<%=rset.getString("F_IdFact")%>" target="_blank">Descargar</a>
-                                    </td>
-                                    <td>
-                                        <form action="Facturacion" method="post">
-                                            <%
-                                                if (usua.equals("remision") || tipo.equals("10")) {
-                                            %>
-                                            <input class="hidden" name="fol_gnkl" value="<%=rset.getString("F_IdFact")%>">
-                                            <button class="btn btn-block btn-danger" name="accion" value="EliminaConcentrado" onclick="return confirm('Seguro de eliminar este concentrado?')"><span class="glyphicon glyphicon-remove"></span></button>
-                                                <%
-                                                    }
-                                                %>
-                                        </form>
-                                    </td>
-                                    <!--td>
-                                        <form action="FacturacionManual" method="post">
-                                            <input class="hidden" name="fol_gnkl" value="<%=rset.getString("F_IdFact")%>">
-                                            <button class="btn btn-block btn-info" name="accion" value="ReenviarFactura" onclick="return confirm('Seguro de Reenviar este concentrado?')"><span class="glyphicon glyphicon-upload"></span></button>
-
-                                        </form>
-                                    </td-->
-                                </tr>
-                                <%
-                                            }
-                                        } catch (Exception e) {
-
-                                        }
-                                        con.cierraConexion();
-                                    } catch (Exception e) {
-
-                                    }
-                                %>
-                            </tbody>
-                        </table>
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <button class="btn btn-danger btn-block "  type="submit" name="cons" value="RURALES" id="btnrual">RURALES</button>
+                                <br/>
+                                <br/>
+                               
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-info btn-block "   type="submit" name="cons" value="SUB-URBANOS" id="btnsuburbanos">SUB-URBANOS</button>
+                                <br/>
+                                <br/>
+                                
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-warning btn-block "  type="submit" name="cons"  value="CARAVANAS" id="btncaravanas">CARAVANAS</button>
+                                <br/>
+                                <br/>
+                                
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-success btn-block "  type="submit" name="cons"   type="button" value="ALM. JURIS" id="btnjuris">ALM. JURIS</button>
+                                <br/>
+                                <br/>
+                                
+                            </div>
+                            <div class="col-lg-2">
+                                <button class="btn btn-primary btn-block "  type="submit" name="cons" value="RUTA DIARIA" id="btnnormal">RUTA DIARIA</button>
+                                <br/>
+                                <br/>
+                                
+                                <input name="tipUni" type="hidden" value="normal" >
+                            </div>
+                        </div>
                     </div>
+                    </form>
                 </div>
 
                 <h4>Folios Cancelados</h4>
@@ -220,15 +165,30 @@
         <script src="js/bootstrap-datepicker.js"></script>
         <script src="js/jquery.dataTables.js"></script>
         <script src="js/dataTables.bootstrap.js"></script>
+       
         <script>
-                                                $(document).ready(function() {
-                                                    $('#datosCompras').dataTable();
-                                                });
+            $(document).ready(function () {
+                $('#datosCompras').dataTable();
+            });
         </script>
         <script>
-            $(function() {
-                $("#fecha").datepicker();
-                $("#fecha").datepicker('option', {dateFormat: 'dd/mm/yy'});
+            $(function () {
+
+                $("#normal").datepicker({
+                    format:'yyyy-mm-dd'
+                });
+                 $("#rural").datepicker({
+                    format:'yyyy-mm-dd'
+                });
+                 $("#suburbano").datepicker({
+                   format:'yyyy-mm-dd'
+                });
+                 $("#caravanas").datepicker({
+                    format:'yyyy-mm-dd'
+                });
+                $("#almjuris").datepicker({
+                    format:'yyyy-mm-dd'
+                });
             });
         </script>
     </body>

@@ -55,6 +55,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="css/select2.css" rel="stylesheet">
         <!---->
         <title>SIALSS</title>
     </head>
@@ -221,7 +222,11 @@
         <script src="js/bootstrap.js"></script>
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/funcIngresos.js"></script>
+        <script src="js/select2.js"></script>
         <script>
+                                
+                                $("#ClaCli").select2();
+    
                                 function justNumbers(e)
                                 {
                                     var keynum = window.event ? window.event.keyCode : e.which;

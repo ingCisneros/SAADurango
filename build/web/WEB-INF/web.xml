@@ -216,6 +216,22 @@
         <servlet-name>EntradaManual</servlet-name>
         <servlet-class>Fb.EntradaManual</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>concentrado</servlet-name>
+        <servlet-class>servlets.concentrado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>consImpre</servlet-name>
+        <servlet-class>servlets.consImpre</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>consReport</servlet-name>
+        <servlet-class>servlets.consReport</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UniServlet</servlet-name>
+        <servlet-class>servlets.UniServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SubirInvenServlet</servlet-name>
         <url-pattern>/inventariosUnidades/SubirInvenServlet</url-pattern>
@@ -431,6 +447,22 @@
     <servlet-mapping>
         <servlet-name>EntradaManual</servlet-name>
         <url-pattern>/EntradaManual</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>concentrado</servlet-name>
+        <url-pattern>/concentrado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>consImpre</servlet-name>
+        <url-pattern>/consImpre</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>consReport</servlet-name>
+        <url-pattern>/consReport</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UniServlet</servlet-name>
+        <url-pattern>/UniServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

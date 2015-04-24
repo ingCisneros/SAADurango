@@ -81,7 +81,7 @@
                         <%
                             if (tipo.equals("7") || tipo.equals("10")) {
                         %>
-                        <li><a href="/SAADurango/requerimiento.jsp">Carga de Requerimiento</a></li>
+                        <li><a href="/SAADurango/requerimiento.jsp">Carga de Inventario U.A.</a></li>
                         <li class="divider"></li>
                             <%
                                 }
@@ -105,7 +105,7 @@
                         <li><a href="#"  onclick="window.open('verDevoluciones.jsp', '', 'width=1200,height=800,left=50,top=50,toolbar=no')">Devoluciones</a></li>
                         <li class="divider"></li>
                         <li><a href="/SAADurango/reimp_factura.jsp">Administrar Remisiones</a></li>
-                        <li><a href="/SAADurango/reimpConcentrado.jsp">Reimpresión Folios a Remisionar</a></li>
+                        <li><a href="/SAADurango/reimpConcentrado.jsp">Impresión de Folios a Remisionar</a></li>
                         <li><a href="/SAADurango/comparativoGlobal.jsp">Folios a Remisionar</a></li>
                         <li class="divider"></li>
                         <li><a href="/SAADurango/Secuencial.jsp">Generar Secuencial</a></li>

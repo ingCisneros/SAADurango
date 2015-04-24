@@ -35,6 +35,7 @@
 
     }
     ConectionDB con = new ConectionDB();
+   
 %>
 <html>
     <head>
@@ -88,6 +89,9 @@
             <input type="text" class="hidden" id="F_FecEnt" name="F_FecEnt" value="<%=request.getParameter("F_FecEnt")%>" />
             <input name="F_ClaUni" class="hidden" value="<%=Clave%>" />
             <div class="row">
+                <div class="col-sm-2 col-sm-offset-5">
+                    <a class="btn btn-block btn-primary" href="excel\detRequerimiento.jsp?F_ClaUni=<%=Clave%>" target="_blank">Descargar</a>
+                </div>
                 <div class="col-sm-2 col-sm-offset-10">
                     <button class="btn btn-warning btn-block" name="accion" value="actualizaRequerimiento">Actualizar</button>
                 </div>

@@ -177,13 +177,22 @@ public class Facturacion extends HttpServlet {
                 String ClaUni = request.getParameter("Nombre");
                 String FechaE = request.getParameter("FecFab");
                 String Clave = "", FolioLote = "";
+                String tip="";
+                
+                
                 int piezas = 0, existencia = 0, diferencia = 0, X = 0, FolioFactura = 0, FolFact = 0, Tipo = 0, Org = 0, piezasDif = 0;
 
                 try {
 
                     con.conectar();
                     //consql.conectar();
-
+                    ResultSet tipUni= con.consulta("SELECT F_Cons FROM tb_uniatn WHERE F_ClaCli='"+ClaUni+"'");
+                    
+                    while(tipUni.next())
+                    {
+                        tip=tipUni.getString("F_Cons");
+                    }
+                    
                     con.insertar("delete from tb_lotetemp");
                     con.insertar("insert into tb_lotetemp select * from tb_lote");
                     /*ResultSet Fechaa = con.consulta("SELECT STR_TO_DATE(" + FechaE + ", '%d/%m/%Y')");
@@ -267,7 +276,7 @@ public class Facturacion extends HttpServlet {
                                             diferencia = piezas - existencia;
                                             con.actualizar("UPDATE tb_lotetemp SET F_ExiLot='0' WHERE F_IdLote='" + IdLote + "'");
 
-                                            con.insertar("insert into tb_facttemp values('" + FolFact + "','" + ClaUni + "','" + IdLote + "','" + existencia + "','" + FechaE + "','0','0','','" + piezas + "')");
+                                            con.insertar("insert into tb_facttemp values('" + FolFact + "','" + ClaUni + "','" + IdLote + "','" + existencia + "','" + FechaE + "','0','0','','" + piezas + "','"+tip+"')");
                                             piezasDif = 0;
                                             piezas = diferencia;
                                         } else {
@@ -275,7 +284,7 @@ public class Facturacion extends HttpServlet {
                                             con.actualizar("UPDATE tb_lotetemp SET F_ExiLot='" + diferencia + "' WHERE F_IdLote='" + IdLote + "'");
 
                                             if (piezas >= 1) {
-                                                con.insertar("insert into tb_facttemp values('" + FolFact + "','" + ClaUni + "','" + IdLote + "','" + piezas + "','" + FechaE + "','0','0','','" + piezas + "')");
+                                                con.insertar("insert into tb_facttemp values('" + FolFact + "','" + ClaUni + "','" + IdLote + "','" + piezas + "','" + FechaE + "','0','0','','" + piezas + "','"+tip+"')");
                                                 con.actualizar("UPDATE tb_lotetemp SET F_ExiLot='" + diferencia + "' WHERE F_IdLote='" + IdLote + "'");
                                             }
                                             piezasDif = diferencia;
