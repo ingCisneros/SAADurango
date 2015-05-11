@@ -87,6 +87,7 @@
         <link href="css/bootstrap.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="css/select2.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap.css">
         <!---->
         <title>SIALSS</title>
@@ -139,14 +140,25 @@
                         <div class="row">
                             <h4 class="col-sm-2">Ingrese CB</h4>
                             <div class="col-sm-3">
-                                <input class="form-control" name="F_Cb" autofocus />
+                                <input class="form-control" id="F_Cb" name="F_Cb" autofocus />
                             </div>
                             <h4 class="col-sm-2">CLAVE</h4>
                             <div class="col-sm-3">
                                 <input class="form-control" name="F_Clave" id="ClaPro" />
                             </div>
                             <div class="col-sm-2">
-                                <button class="btn btn-block btn-primary" onclick="return validaCliente()">Buscar</button>
+                                <button class="btn btn-block btn-primary" id="btnSearch" >Buscar</button>
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row" >
+                            <div class="col-sm-2 ">
+                                <h4 >Ingrese descripción:</h4>
+                            </div>
+                            
+                            <div class="col-sm-8">
+                                <input class="form-control" name="DesPro" id="DesProAuto"/>
                             </div>
                         </div>
                     </form>
@@ -433,7 +445,20 @@
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery.dataTables.js"></script>
         <script src="js/dataTables.bootstrap.js"></script>
+        <script src="js/select2.js"></script>
+        <script src="js/surtido/desc.js"></script>
         <script>
+
+                                $("#Nombre").change(function () {
+
+                                    $("#F_Cb").focus();
+
+                                });
+                                
+                                $("#Nombre").select2();
+
+
+                                
                                 function validaRemision() {
                                     var seg = confirm('Desea Remisionar este Insumo?');
                                     if (seg === false) {

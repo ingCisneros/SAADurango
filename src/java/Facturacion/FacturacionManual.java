@@ -223,7 +223,7 @@ public class FacturacionManual extends HttpServlet {
                     if (req.equals("")) {
                         req = "00000";
                     }
-                    String idFact="";
+                    String idFact = "";
                     String qryFact = "select f.F_ClaCli, l.F_FolLot, l.F_IdLote, l.F_ClaPro, l.F_ClaLot, l.F_FecCad, m.F_TipMed, m.F_Costo, p.F_ClaProve, f.F_Cant, l.F_ExiLot, l.F_Ubica, f.F_IdFact, f.F_Id, f.F_FecEnt, f.F_CantSol  from tb_facttemp f, tb_lote l, tb_medica m, tb_proveedor p where f.F_IdLot = l.F_IdLote AND l.F_ClaPro = m.F_ClaPro AND l.F_ClaOrg = p.F_ClaProve and f.F_IdFact = '" + request.getParameter("Nombre") + "' and f.F_StsFact=4 AND (f.F_Id IN (" + claves + ")) ";
                     ResultSet rset = con.consulta(qryFact);
                     while (rset.next()) {
@@ -314,9 +314,25 @@ public class FacturacionManual extends HttpServlet {
             }
             if (request.getParameter("accion").equals("ConfirmarFactura")) {
                 try {
+                    
+                    int consBan=Integer.parseInt(request.getParameter("banConsMan") );
+                    
                     con.conectar();
                     RequerimientoModula reqMod = new RequerimientoModula();
+                    
                     //reqMod.enviaRequerimiento((String) sesion.getAttribute("F_IndGlobal"));
+                    if(consBan==0)
+                    {
+                        con.insertar("update tb_facttemp set F_StsFact = '0' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
+                      
+                    }
+                    else
+                    {
+                         con.insertar("update tb_facttemp set F_StsFact = '0' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
+                      
+                         con.insertar("update tb_facttemp set F_Cons = '1' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
+                  
+                    }
                     con.insertar("update tb_facttemp set F_StsFact = '0' where F_IdFact = '" + (String) sesion.getAttribute("F_IndGlobal") + "' ");
                     con.cierraConexion();
                     sesion.setAttribute("F_IndGlobal", null);
@@ -337,13 +353,13 @@ public class FacturacionManual extends HttpServlet {
             if (request.getParameter("accion").equals("AgregarClave")) {
                 try {
                     unidadDao u = new unidadDaoImpl();
-                    String Uni= (String) sesion.getAttribute("ClaCliFM");
-                    int un= Integer.parseInt(Uni);
-                    Uni=u.tipUni(un);
-                    
+                    String Uni = (String) sesion.getAttribute("ClaCliFM");
+                    int un = Integer.parseInt(Uni);
+                    Uni = u.tipUni(un);
+
                     con.conectar();
-                    
-                    con.insertar("insert into tb_facttemp values('" + (String) sesion.getAttribute("F_IndGlobal") + "','" + (String) sesion.getAttribute("ClaCliFM") + "','" + request.getParameter("IdLot") + "','" + request.getParameter("Cant") + "','" + (String) sesion.getAttribute("FechaEntFM") + "','3','0','','" + request.getParameter("Cant") + "','"+Uni+"')");
+
+                    con.insertar("insert into tb_facttemp values('" + (String) sesion.getAttribute("F_IndGlobal") + "','" + (String) sesion.getAttribute("ClaCliFM") + "','" + request.getParameter("IdLot") + "','" + request.getParameter("Cant") + "','" + (String) sesion.getAttribute("FechaEntFM") + "','3','0','','" + request.getParameter("Cant") + "','" + Uni + "',0)");
                     con.cierraConexion();
                     response.sendRedirect("facturacionManual.jsp");
                 } catch (Exception e) {
@@ -352,6 +368,20 @@ public class FacturacionManual extends HttpServlet {
             }
             if (request.getParameter("accion").equals("SeleccionaLote")) {
                 System.out.println(request.getParameter("Cantidad"));
+                try {
+                    String F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
+
+                    if (F_IndGlobal == null) {
+                        sesion.setAttribute("F_IndGlobal", dameIndGlobal() + "");
+                        F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                sesion.setAttribute("ClaCliFM", request.getParameter("ClaCli"));
+                sesion.setAttribute("FechaEntFM", request.getParameter("FechaEnt"));
+                sesion.setAttribute("ClaProFM", request.getParameter("ClaveSel"));
+                sesion.setAttribute("DesProFM",request.getParameter("DesSel"));
                 response.setContentType("text/html");
                 request.setAttribute("Cantidad", request.getParameter("Cantidad"));
                 request.getRequestDispatcher("facturacionManualSelecLote.jsp").forward(request, response);
@@ -359,23 +389,26 @@ public class FacturacionManual extends HttpServlet {
 
             if (request.getParameter("accion").equals("btnClave")) {
                 try {
-                    String F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
-                    int banInsumo=0;
-                    if (F_IndGlobal == null) {
-                        sesion.setAttribute("F_IndGlobal", dameIndGlobal() + "");
-                        F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
-                    }
+                    int banInsumo = 0;
+                    /*
+                     String F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
+                   
+                     if (F_IndGlobal == null) {
+                     sesion.setAttribute("F_IndGlobal", dameIndGlobal() + "");
+                     F_IndGlobal = (String) sesion.getAttribute("F_IndGlobal");
+                     }*/
                     con.conectar();
                     ResultSet rset = con.consulta("select m.F_ClaPro, m.F_DesPro, l.F_ClaLot, l.F_FolLot, DATE_FORMAT(l.F_FecCad, '%d/%m/%Y') from tb_medica m, tb_lote l where m.F_ClaPro = l.F_ClaPro and m.F_ClaPro = '" + request.getParameter("ClaPro") + "' group by m.F_ClaPro;");
                     while (rset.next()) {
-                        banInsumo=1;
+                        banInsumo = 1;
+                        sesion.setAttribute("ClaProFM", rset.getString(1));
                         sesion.setAttribute("DesProFM", rset.getString(2));
                     }
                     con.cierraConexion();
                     sesion.setAttribute("ClaCliFM", request.getParameter("ClaCli"));
                     sesion.setAttribute("FechaEntFM", request.getParameter("FechaEnt"));
-                    sesion.setAttribute("ClaProFM", request.getParameter("ClaPro"));
-                    if(banInsumo==0){
+                    
+                    if (banInsumo == 0) {
                         out.println("<script>alert('Insumo sin Existencias')</script>");
                     }
                     out.println("<script>window.location='facturacionManual.jsp'</script>");
@@ -386,7 +419,7 @@ public class FacturacionManual extends HttpServlet {
 
             String[] quitar = request.getParameter("accion").split(",");
             if (quitar[0].equals("quitarInsumo")) {
-                System.out.println(request.getParameter("Nombre") + "*****");
+                
                 sesion.setAttribute("Nombre", request.getParameter("Nombre"));
                 con.conectar();
                 con.insertar("update tb_facttemp set F_StsFact = '2' where F_Id = '" + quitar[1] + "' ");

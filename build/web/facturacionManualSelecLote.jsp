@@ -119,7 +119,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-1">
-                                <h4>SICCAL:</h4>
+                                <h4>CLAVE:</h4>
                             </div>
                             <div class="col-sm-2">
                                 <input class="form-control" readonly="" value="<%=ClaPro%>"/>

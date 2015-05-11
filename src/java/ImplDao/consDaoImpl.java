@@ -153,7 +153,487 @@ public class consDaoImpl implements consDao{
         {
             con.conectar();
             
-            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='NORMAL' AND f.F_ClaCli="+uni+"   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND  f.F_ClaCli="+uni+"   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> ByUnFec(int uni, String fec) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='NORMAL' AND f.F_ClaCli="+uni+" AND f.F_FecEnt='"+fec+"'  AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> Rural() {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ZR' AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> listFecRur(String date) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ZR' AND f.F_FecEnt='"+date+"'   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> ByUnFecRural(int uni, String fec) {
+       List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ZR' AND f.F_ClaCli="+uni+" AND f.F_FecEnt='"+fec+"'  AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> SubUrb() {
+       List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='SBB' AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> listFecSubUrb(String date) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='SBB' AND f.F_FecEnt='"+date+"'   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> ByUnFecSub(int uni, String fec) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='SBB' AND f.F_ClaCli="+uni+" AND f.F_FecEnt='"+fec+"'  AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> Caravanas() {
+         List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='CARAV' AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> listFecCarav(String date) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='CARAV' AND f.F_FecEnt='"+date+"'   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> AlmJur() {
+         List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ALMC' AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> listFecAlm(String date) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ALMC' AND f.F_FecEnt='"+date+"'   AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
+            
+            ResultSet rs = con.consulta(qry);
+            
+            while(rs.next())
+            {
+               cons c = new cons(); 
+               c.setNomCli(rs.getString("u.F_NomCli"));
+               c.setIdFac(rs.getInt("f.F_IdFact"));
+               c.setDate(rs.getString("f.F_FecEnt"));
+               facTemp.add(c);
+            }
+            
+            
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try {
+                con.cierraConexion();
+            } catch (SQLException ex) {
+                Logger.getLogger(consDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            
+        
+        return facTemp;
+    }
+
+    @Override
+    public List<cons> ByUnFecAlm(int uni, String fec) {
+        List<cons> facTemp = new ArrayList<cons>();
+            
+        try 
+        {
+            con.conectar();
+            
+            String qry="SELECT f.F_IdFact, u.F_NomCli, f.F_FecEnt FROM tb_facttemp f, tb_uniatn u WHERE u.F_ClaCli=f.F_ClaCli AND f.F_TipUni='ALMC' AND f.F_ClaCli="+uni+" AND f.F_FecEnt='"+fec+"'  AND f.F_StsFact=0 GROUP BY f.F_IdFact ;";
             
             ResultSet rs = con.consulta(qry);
             

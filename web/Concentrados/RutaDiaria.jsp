@@ -52,25 +52,26 @@
             <%@include file="../jspf/menuPrincipal.jspf" %>
             <div>
                 <h3>Impresión de folios de ruta diaria</h3>
-                <!--div class="row">
-
+                <br/>
+                <h3>Concentrado diario</h3>
+                <br/>
+                
+                <div class="row">
+                    
                     <h4 class="col-sm-2" >Seleccionar fecha:</h4>
-
+                    
                     <div class="col-sm-3" >
                        
-                        <input id="fec" class="form-control" name="fec" placeholder="Fecha"  >
+                        <input id="fecCons" class="form-control" name="fecCons" placeholder="Fecha"  >
                     </div>
 
                     <div class="col-sm-4" >
-                        <button id="imprTodosNormal" onclick="reload();" name="cons" type="button" value="normalFec" class="btn btn-info" >Mostrar todas</button>
+                        <button id="ConsNormal"  name="ConsNormal" type="button" value="ConsNormal" class="btn btn-info" >Imprimir concentrado</button>
                     </div>
 
-                    <div class="col-sm-3" >
-                        <button id="imprTodos" onclick="allImpr();" name="cons" type="button"  class="btn btn-danger" >Imrpimir toda la lista</button>
-                    </div>
 
-                </div-->
-
+                </div>
+                <br/>
                 <h4>Seleccione cricterio de búsqueda:</h4>
                 <br/>
                 <div class="row" >
@@ -97,37 +98,74 @@
 
                     <h4 class="col-sm-2" >Seleccionar fecha:</h4>
 
-                    <div class="col-sm-3 " >
+                    <div class="col-sm-2 " >
 
                         <input id="fec" class="form-control" name="fec" placeholder="Fecha"  >
                     </div>
 
-                    <div class="col-sm-4" >
+                    <div class="col-sm-2" >
                         <button id="imprTodosNormal" onclick="reload();" name="cons" type="button" value="normalFec" class="btn btn-info" >Mostrar todas</button>
                     </div>
 
-                    <div class="col-sm-3" >
-                        <button id="imprTodos"  name="cons" type="button"  class="btn btn-danger" >Imprimir toda la lista</button>
+                    <div class="col-sm-2" >
+                        <button id="imprTodos"  name="cons" type="button"  class="btn btn-danger" >Imprimir Selección</button>
+                    </div>
+                     <h4 class="col-sm-2" >Seleccionar todos:</h4>
+                    <div class="col-sm-1" >
+                        <input  type="checkbox" class="checkbox" name="todasImpr" id="todasImpr">
                     </div>
                 </div> 
                 
                   <div class="row  " id="byUni" >
 
-                    <h4 class="col-sm-2" >Seleccionar Unidad:</h4>
+                    <h4 class="col-sm-1" >Seleccionar Unidad:</h4>
 
-                    <div class="col-sm-5 col-md-5 col-lg-5 " >
+                    <div class="col-sm-4 col-md-4 col-lg-4 " >
 
-                        <input class="form-control" id="txtUni" >
+                        <input class="form-control" id="txtUni"  >
                         
                     </div>
                     <div class="col-sm-2" >
                         <button id="showAllUni"  name="cons" type="button"  class="btn btn-success" >Ver todas las unidades</button>
                     </div>
+                    <h4 class="col-sm-2" >Seleccionar todos:</h4>
+                    <div class="col-sm-1" >
+                        <input  type="checkbox" class="checkbox" name="todasImpr" id="todasImpr">
+                    </div>
                     <div class="col-sm-2" >
-                        <button id="imprUni"  name="cons" type="button"  class="btn btn-danger" >Imprimir toda la lista</button>
+                        <button id="imprUniAll"  name="cons" type="button"  class="btn btn-danger" >Imprimir Selección</button>
+                    </div>
+                    
+                </div>  
+                 <div class="row  " id="byUniAndFec" >
+                     <input id="clUni" type="hidden" value="">
+                    <h4 class="col-sm-2" >Seleccionar Unidad:</h4>
+
+                    <div class="col-sm-4 col-md-4 col-lg-4 " >
+
+                        <input class="form-control" id="txtUni1" >
+                        
+                    </div>
+                    <h4 class="col-sm-2" >Seleccionar fecha:</h4>
+                    <div class="col-sm-2 " >
+
+                        <input id="fec1" class="form-control" name="fec" placeholder="Fecha"  >
+                    </div>
+                    <div class="col-sm-1" >
+                        <button id="imprUniAndFec"  name="cons" type="button"  class="btn btn-info" >Buscar</button>
+                    </div>
+                    <div class="col-sm-1" >
+                        <button id="imprUniAndFecAll"  name="cons" type="button"  class="btn btn-danger" >Impr. Sel</button>
+                    </div>
+                    <br/>
+                    <br/>
+                  
+                    <h4 class="col-sm-2" id="labelAll" >Seleccionar todos:</h4>
+                    <div class="col-sm-1" >
+                        <input  type="checkbox" class="checkbox" name="todasImpr" id="FecUNiCheck">
                     </div>
                 </div>  
-               
+                
                 <br/>
                 <br/>
                 <div class="panel panel-primary"  >

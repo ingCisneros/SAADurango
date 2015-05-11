@@ -87,7 +87,7 @@ public class consImpre extends HttpServlet {
 
         switch (bandera) {
             case 1:
-                
+
                 JSONObject json = new JSONObject();
                 JSONArray jsona = new JSONArray();
 
@@ -110,13 +110,13 @@ public class consImpre extends HttpServlet {
                 }
                 out.print(jsona);
                 out.close();
-                   
-            break;    
+
+                break;
             case 2:
 
                 String date = request.getParameter("fecha");
-                 json = new JSONObject();
-                 jsona = new JSONArray();
+                json = new JSONObject();
+                jsona = new JSONArray();
 
                 c = new consDaoImpl();
 
@@ -140,24 +140,22 @@ public class consImpre extends HttpServlet {
                 break;
 
             case 3:
-                    
-               String fol= request.getParameter("fol");
-               String nombre = request.getParameter("name");
-               
-               c= new consDaoImpl();
-               
-               boolean Deleted = c.delete(fol, nombre);
-               
-                              
-                
-            break;
-                
+
+                String fol = request.getParameter("fol");
+                String nombre = request.getParameter("name");
+
+                c = new consDaoImpl();
+
+                boolean Deleted = c.delete(fol, nombre);
+
+                break;
+
             case 4:
-                
+
                 int claUni = Integer.parseInt(request.getParameter("uni"));
-                
-                 json = new JSONObject();
-                 jsona = new JSONArray();
+
+                json = new JSONObject();
+                jsona = new JSONArray();
 
                 c = new consDaoImpl();
 
@@ -178,7 +176,315 @@ public class consImpre extends HttpServlet {
                 }
                 out.print(jsona);
                 out.close();
+                break;
+            case 5:
+                claUni = Integer.parseInt(request.getParameter("uni"));
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.ByUnFec(claUni, date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+            case 6:
+
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.Rural();
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+
+                break;
+            case 7:
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.listFecRur(date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+            case 8:
+                claUni = Integer.parseInt(request.getParameter("uni"));
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.ByUnFecRural(claUni, date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+
+            case 9:
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.SubUrb();
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+            case 10:
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.listFecSubUrb(date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+            case 11:
+                claUni = Integer.parseInt(request.getParameter("uni"));
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.ByUnFecSub(claUni, date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+
+                break;
+            case 12:
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.Caravanas();
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+
+            case 13:
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.listFecCarav(date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+
+            case 14:
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.AlmJur();
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+                break;
+            case 15:
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.listFecAlm(date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
+            break;   
+             
+            case 16:
+                claUni = Integer.parseInt(request.getParameter("uni"));
+                date = request.getParameter("fecha");
+                json = new JSONObject();
+                jsona = new JSONArray();
+
+                c = new consDaoImpl();
+
+                facTemp = new ArrayList<cons>();
+                facTemp = c.ByUnFecAlm(claUni, date);
+                for (int i = 0; i < facTemp.size(); i++) {
+
+                    cons co = new cons();
+                    co = (cons) facTemp.get(i);
+
+                    json.put("fol", co.getIdFac());
+                    json.put("unidad", co.getNomCli());
+                    json.put("entrega", co.getDate());
+
+                    jsona.add(json);
+                    json = new JSONObject();
+
+                }
+                out.print(jsona);
+                out.close();
             break;    
+
         }
 
     }

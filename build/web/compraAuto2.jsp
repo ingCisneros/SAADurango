@@ -325,7 +325,7 @@
                         <div class="panel-body">
                             <%
                                 try {
-                                    System.out.println("*****" + (String) sesion.getAttribute("claveSeleccionada"));
+                                    
                                     con.conectar();
                                     ResultSet rset2 = con.consulta("select s.F_Clave, m.F_DesPro, s.F_Lote, DATE_FORMAT(F_Cadu, '%d/%m/%Y'), s.F_Cant, F_IdIsem, F_Obser from tb_pedidoisem s, tb_medica m where s.F_Clave = m.F_ClaPro and F_NoCompra = '" + rset.getString(1) + "' and F_StsPed = '1'");
                                     while (rset2.next()) {
@@ -569,17 +569,12 @@
                                                 <%
                                                     try {
                                                         con.conectar();
-                                                        ResultSet rset3 = con.consulta("select F_ClaOri, F_DesOri from tb_origen");
+                                                        ResultSet rset3 = con.consulta("select F_ClaOri, F_DesOri from tb_origen ORDER BY F_ClaOri DESC");
                                                         while (rset3.next()) {
-                                                            ResultSet rset4 = con.consulta("select F_Origen from tb_medica where F_ClaPro = '" + rset2.getString(1) + "' ");
-                                                %>
+                                                      %>     
                                                 <option value="<%=rset3.getString("F_ClaOri")%>"
                                                         <%
-                                                            while (rset4.next()) {
-                                                                if (rset3.getString("F_ClaOri").equals(rset4.getString("F_Origen"))) {
-                                                                    out.println("selected");
-                                                                }
-                                                            }
+                                                           
                                                         %>
                                                         ><%=rset3.getString("F_DesOri")%></option>
                                                 <%

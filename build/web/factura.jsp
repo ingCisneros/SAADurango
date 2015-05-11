@@ -51,7 +51,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Estilos CSS -->
         <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/datepicker3.css" rel="stylesheet">
+        <!--link href="css/datepicker3.css" rel="stylesheet"-->
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
         <!---->
@@ -112,7 +112,7 @@
                             <div class="form-group">
                                 <label for="FecFab" class="col-sm-1 control-label">Fec Entrega</label>
                                 <div class="col-sm-2">
-                                    <input type="date" class="form-control" id="FecFab" name="FecFab" placeholder="FecFab" maxlength="10" />
+                                    <input type="text" class="form-control" id="FecFab" name="FecFab"   />
                                 </div>
                             </div>
                         </div>
@@ -229,10 +229,18 @@
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/jquery.dataTables.js"></script>
         <script src="js/dataTables.bootstrap.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
+        <!--script src="js/bootstrap-datepicker.js"></script-->
         <script>
                             $(document).ready(function() {
                                 $('#datosProv').dataTable();
+                            });
+                            $("#FecFab").datepicker({
+                                
+                                changeMonth:true,
+                                changeYear:true,
+                                dateFormat:"yy-mm-dd",
+                                minDate: 0
+                                
                             });
                             function validaRemision() {
                                 var fec = $("#FecFab").val();

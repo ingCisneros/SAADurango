@@ -82,6 +82,7 @@
                             if (tipo.equals("7") || tipo.equals("10")) {
                         %>
                         <li><a href="/SAADurango/requerimiento.jsp">Carga de Inventario U.A.</a></li>
+                        <li><a href="/SAADurango/rurales/requerimientoRural.jsp">Carga de requerimiento rurales.</a></li>
                         <li class="divider"></li>
                             <%
                                 }

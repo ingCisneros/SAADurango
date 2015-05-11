@@ -64,6 +64,7 @@
         <link href="css/datepicker3.css" rel="stylesheet">
         <link rel="stylesheet" href="css/cupertino/jquery-ui-1.10.3.custom.css" />
         <link href="css/navbar-fixed-top.css" rel="stylesheet">
+        <link href="css/select2.css" rel="stylesheet">
         <!---->
         <!---->
         <title>SIALSS</title>
@@ -81,7 +82,7 @@
                         <h4>&Oacute;rdenes de Compra: </h4>
                     </label>
                     <div class="col-sm-9">
-                        <select class="form-control" name="NoCompra" onchange="this.form.submit();">
+                        <select class="form-control" name="NoCompra" id="NoCompra" onchange="this.form.submit();">
                             <option value="">-- Proveedor -- Orden de Compra --</option>
                             <%                                try {
                                     con.conectar();
@@ -359,8 +360,12 @@
     <script src="js/bootstrap.js"></script>
     <script src="js/jquery-ui-1.10.3.custom.js"></script>
     <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/select2.js"></script>
     <script type="text/javascript">
 
     </script>
-
+    <script>
+        $("#NoCompra").select2();
+        
+    </script>
 </html>

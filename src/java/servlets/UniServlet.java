@@ -75,32 +75,127 @@ public class UniServlet extends HttpServlet {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Expires", "-1");
 
-        String query = request.getParameter("term");
+        int ban = Integer.parseInt(request.getParameter("ban"));
 
-        try {
-            query = query.toLowerCase();
-            unidadDao u = new unidadDaoImpl();
-            List<Uni> lUni = new ArrayList<Uni>();
-            lUni = (List) u.rutaDiariaDesc(query);
-            Uni med = new Uni();
-            JSONArray arrayObj = new JSONArray();
-            System.out.println(query);
+        switch (ban) {
 
-            for (int i = 0; i < lUni.size(); i++) {
-                med = (Uni) lUni.get(i);
+            case 1:
+                String query = request.getParameter("descrip");
 
-                String medicamento = med.getNomCli().toLowerCase();
-                if (medicamento.startsWith(query)) {
-                    arrayObj.add(med.getNomCli());
+                try {
+                    query = query.toLowerCase();
+                    unidadDao u = new unidadDaoImpl();
+                    List<Uni> lUni = new ArrayList<Uni>();
+                    lUni = (List) u.rutaDiariaDesc(query);
+                    Uni med = new Uni();
+                    JSONArray arrayObj = new JSONArray();
+                    System.out.println(query);
+
+                    for (int i = 0; i < lUni.size(); i++) {
+                        med = (Uni) lUni.get(i);
+
+                        String medicamento = med.getNomCli().toLowerCase();
+                        if (medicamento.contains(query)) {
+                            arrayObj.add(med.getNomCli());
+                        }
+                    }
+
+                    out.println(arrayObj.toString());
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+
                 }
-            }
+                break;
 
-            out.println(arrayObj.toString());
-            out.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            case 2:
 
+                query = request.getParameter("descrip");
+
+                try {
+                    query = query.toLowerCase();
+                    unidadDao u = new unidadDaoImpl();
+                    List<Uni> lUni = new ArrayList<Uni>();
+                    lUni = (List) u.rural(query);
+                    Uni med = new Uni();
+                    JSONArray arrayObj = new JSONArray();
+                    System.out.println(query);
+
+                    for (int i = 0; i < lUni.size(); i++) {
+                        med = (Uni) lUni.get(i);
+
+                        String medicamento = med.getNomCli().toLowerCase();
+                        if (medicamento.contains(query)) {
+                            arrayObj.add(med.getNomCli());
+                        }
+                    }
+
+                    out.println(arrayObj.toString());
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                break;
+            case 3:
+                query = request.getParameter("descrip");
+
+                try {
+                    query = query.toLowerCase();
+                    unidadDao u = new unidadDaoImpl();
+                    List<Uni> lUni = new ArrayList<Uni>();
+                    lUni = (List) u.subUrb(query);
+                    Uni med = new Uni();
+                    JSONArray arrayObj = new JSONArray();
+                    System.out.println(query);
+
+                    for (int i = 0; i < lUni.size(); i++) {
+                        med = (Uni) lUni.get(i);
+
+                        String medicamento = med.getNomCli().toLowerCase();
+                        if (medicamento.contains(query)) {
+                            arrayObj.add(med.getNomCli());
+                        }
+                    }
+
+                    out.println(arrayObj.toString());
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+                break;
+                
+            case 4:
+                query = request.getParameter("descrip");
+
+                try {
+                    query = query.toLowerCase();
+                    unidadDao u = new unidadDaoImpl();
+                    List<Uni> lUni = new ArrayList<Uni>();
+                    lUni = (List) u.almaJur(query);
+                    Uni med = new Uni();
+                    JSONArray arrayObj = new JSONArray();
+                    System.out.println(query);
+
+                    for (int i = 0; i < lUni.size(); i++) {
+                        med = (Uni) lUni.get(i);
+
+                        String medicamento = med.getNomCli().toLowerCase();
+                        if (medicamento.contains(query)) {
+                            arrayObj.add(med.getNomCli());
+                        }
+                    }
+
+                    out.println(arrayObj.toString());
+                    out.close();
+                } catch (Exception e) {
+                    e.printStackTrace();
+
+                }
+            break;    
         }
+
     }
 
     /**
@@ -125,12 +220,12 @@ public class UniServlet extends HttpServlet {
                 try {
                     unidadDao u = new unidadDaoImpl();
                     List<Uni> lUni = new ArrayList<Uni>();
-                    lUni=u.rutaDiaria();
+                    lUni = u.rutaDiaria();
                     Uni un = new Uni();
                     for (int i = 0; i < lUni.size(); i++) {
                         un = (Uni) lUni.get(i);
-                       
-                        lUn.put(un.getNomCli(), Integer.toString(un.getClaCLi()) );
+
+                        lUn.put(un.getNomCli(), Integer.toString(un.getClaCLi()));
 
                     }
                     String json = null;
@@ -140,6 +235,32 @@ public class UniServlet extends HttpServlet {
                     response.getWriter().write(json);
                 } catch (Exception e) {
                     e.printStackTrace();
+                }
+                break;
+
+            case 2:
+                String descripcion = request.getParameter("descri");
+                Map dv = new LinkedHashMap();
+                try {
+                    unidadDao cl = new unidadDaoImpl();
+                    List<Uni> l_a = new ArrayList<Uni>();
+                    l_a = (List) cl.byNomUni(descripcion);
+                    Uni med = new Uni();
+                    for (int i = 0; i < l_a.size(); i++) {
+                        med = (Uni) l_a.get(i);
+                        dv.put("clave", med.getClaCLi());
+                        dv.put("uni_ate", med.getNomCli());
+
+                    }
+                    String json1 = null;
+                    json1 = new Gson().toJson(dv);
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("UTF-8");
+                    response.getWriter().write(json1);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+
                 }
                 break;
         }

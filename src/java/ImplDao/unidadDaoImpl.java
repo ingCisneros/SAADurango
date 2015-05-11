@@ -80,7 +80,17 @@ public class unidadDaoImpl implements unidadDao{
         {
             e.printStackTrace();
         }
-        
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
         return r;
     }
 
@@ -102,7 +112,157 @@ public class unidadDaoImpl implements unidadDao{
         {
             e.printStackTrace();
         }
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
+
+    @Override
+    public List<Uni> byNomUni(String uniName) {
+        List<Uni> r = new ArrayList<Uni>();
         
+        String qry= "SELECT F_ClaCli,F_NomCli FROM tb_uniatn WHERE  F_NomCli='"+uniName+"' GROUP BY F_ClaCli ;";
+        try
+        {
+            con.conectar();
+            ResultSet rs = con.consulta(qry);
+            while(rs.next())
+            {
+                Uni u = new Uni();
+                u.setClaCLi(rs.getInt("F_ClaCli"));
+                u.setNomCli(rs.getString("F_NomCli"));
+                r.add(u);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
+
+    @Override
+    public List<Uni> rural(String desc) {
+         List<Uni> r = new ArrayList<Uni>();
+        
+        String qry= "SELECT F_ClaCli,F_NomCli FROM tb_uniatn WHERE F_Cons='ZR' AND F_NomCli LIKE '%"+desc+"%' GROUP BY F_ClaCli   ORDER BY F_ClaCli LIMIT 15 ;";
+        try
+        {
+            con.conectar();
+            ResultSet rs = con.consulta(qry);
+            while(rs.next())
+            {
+                Uni u = new Uni();
+                u.setClaCLi(rs.getInt("F_ClaCli"));
+                u.setNomCli(rs.getString("F_NomCli"));
+                r.add(u);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
+
+    @Override
+    public List<Uni> subUrb(String desc) {
+        List<Uni> r = new ArrayList<Uni>();
+        
+        String qry= "SELECT F_ClaCli,F_NomCli FROM tb_uniatn WHERE F_Cons='SBB' AND F_NomCli LIKE '%"+desc+"%' GROUP BY F_ClaCli   ORDER BY F_ClaCli LIMIT 15 ;";
+        try
+        {
+            con.conectar();
+            ResultSet rs = con.consulta(qry);
+            while(rs.next())
+            {
+                Uni u = new Uni();
+                u.setClaCLi(rs.getInt("F_ClaCli"));
+                u.setNomCli(rs.getString("F_NomCli"));
+                r.add(u);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
+        return r;
+    }
+
+    @Override
+    public List<Uni> almaJur(String desc) {
+        List<Uni> r = new ArrayList<Uni>();
+        
+        String qry= "SELECT F_ClaCli,F_NomCli FROM tb_uniatn WHERE F_Cons='ALMC' AND F_NomCli LIKE '%"+desc+"%' GROUP BY F_ClaCli   ORDER BY F_ClaCli LIMIT 15 ;";
+        try
+        {
+            con.conectar();
+            ResultSet rs = con.consulta(qry);
+            while(rs.next())
+            {
+                Uni u = new Uni();
+                u.setClaCLi(rs.getInt("F_ClaCli"));
+                u.setNomCli(rs.getString("F_NomCli"));
+                r.add(u);
+            }
+        } 
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+         finally
+        {
+            try 
+            {
+                con.cierraConexion();
+            } 
+            catch (Exception e) 
+            {
+                e.printStackTrace();
+            }
+        }
         return r;
     }
     

@@ -77,6 +77,7 @@
                     <div class="col-sm-1">
                         <h4>Unidad:</h4>
                     </div>
+                    <input type="hidden" id="banConsMan" name="banConsMan">
                     <div class="col-sm-5">
                         <select class="form-control" name="ClaCli" id="ClaCli">
                             <option value="">-Seleccione Unidad-</option>
@@ -106,20 +107,27 @@
                         <h4>Fecha de Entrega</h4>
                     </div>
                     <div class="col-sm-2">
-                        <input type="date" class="form-control" name="FechaEnt" id="FechaEnt" min="<%=df2.format(new Date())%>" value="<%=FechaEnt%>"/>
+                        <input type="text" readonly="true" class="form-control" name="FechaEnt" id="FechaEnt"  value="<%=FechaEnt%>"/>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-sm-2">
-                                <h4>Ingrese CLAVE:</h4>
+                                <h4>Ingrese clave:</h4>
                             </div>
                             <div class="col-sm-2">
                                 <input class="form-control" name="ClaPro" id="ClaPro"/>
                             </div>
-                            <div class="col-sm-2">
-                                <button class="btn btn-primary btn-block" name="accion" value="btnClave" id="btnClave" onclick="return validaBuscar();">Buscar</button>
+                            <div class="col-sm-1">
+                                <button class="btn btn-primary btn-block left" name="accion" value="btnClave" id="btnClave" onclick="return validaBuscar();">Buscar</button>
+                            </div>
+                            <div class="col-sm-3 right">
+                                <h4 style="text-align: right" >Ingrese descripción:</h4>
+                            </div>
+                            <input id="banDesc" type="hidden" name=" banDesc">
+                            <div class="col-sm-4">
+                                <input class="form-control" name="DesPro" id="DesProAuto"/>
                             </div>
                         </div>
                     </div>
@@ -129,13 +137,13 @@
                                 <h4>CLAVE:</h4>
                             </div>
                             <div class="col-sm-2">
-                                <input class="form-control" readonly="" value="<%=ClaPro%>" id="ClaveSel"/>
+                                <input class="form-control" readonly="" name="ClaveSel" value="<%=ClaPro%>" id="ClaveSel"/>
                             </div>
                             <div class="col-sm-2">
                                 <h4>Descripción:</h4>
                             </div>
                             <div class="col-sm-7">
-                                <textarea class="form-control" readonly="" id="DesSel"><%=DesPro%></textarea>
+                                <textarea class="form-control" readonly="" name="DesSel" id="DesSel"><%=DesPro%></textarea>
                             </div>
                         </div>
                         <br/>
@@ -200,7 +208,7 @@
                 %>
                 <div class="row">
                     <div class="col-sm-6">
-                        <button class="btn btn-block btn-primary" name="accion" value="ConfirmarFactura" onclick="return confirm('Seguro de confirmar la Factura?')">Confirmar Factura</button>
+                        <button class="btn btn-block btn-primary" name="accion" value="ConfirmarFactura" onclick="return concentrado()">Confirmar Factura</button>
                     </div>
                     <div class="col-sm-6">
                         <button class="btn btn-block btn-danger" name="accion" value="CancelarFactura" onclick="return confirm('Seguro de CANCELAR la Factura?')">Cancelar Factura</button>
@@ -223,56 +231,97 @@
         <script src="js/jquery-ui-1.10.3.custom.js"></script>
         <script src="js/funcIngresos.js"></script>
         <script src="js/select2.js"></script>
+        <script src="js/facManual/autoDescrip.js"></script>
         <script>
-                                
-                                $("#ClaCli").select2();
-    
-                                function justNumbers(e)
+
+                            $("#ClaCli").select2();
+                            $("#FechaEnt").datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                dateFormat: "yy-mm-dd",
+                                minDate: 0
+
+                            });
+
+
+                            function concentrado()
+                            {
+                                if (confirm("¿Seguro de confirmar la Factura?") === true)
                                 {
-                                    var keynum = window.event ? window.event.keyCode : e.which;
-                                    if ((keynum === 8) || (keynum === 46))
-                                        return true;
-                                    return /\d/.test(String.fromCharCode(keynum));
-                                }
-
-                                function cambiaLoteCadu(elemento) {
-                                    var indice = elemento.selectedIndex;
-                                    document.getElementById('SelectCadu').selectedIndex = indice;
-                                }
-
-                                function validaBuscar() {
-                                    var Unidad = document.getElementById('ClaCli').value;
-                                    if (Unidad === "") {
-                                        alert('Seleccione Unidad');
-                                        return false;
+                                    if (confirm("¿El folio entra al concentrado?") === true)
+                                    {
+                                        $("#banConsMan").val("0");
                                     }
-
-                                    var FechaEnt = document.getElementById('FechaEnt').value;
-                                    if (FechaEnt === "") {
-                                        alert('Seleccione Fecha de Entrega');
-                                        return false;
-                                    }
-                                    var clave = document.getElementById('ClaPro').value;
-                                    if (clave === "") {
-                                        alert('Escriba una Clave');
-                                        return false;
+                                    
+                                    else
+                                    {
+                                        $("#banConsMan").val("1");
                                     }
                                 }
+                                else
+                                {
 
-
-                                function validaSeleccionar() {
-                                    var DesSel = document.getElementById('DesSel').value;
-                                    if (DesSel === "") {
-                                        alert('Favor de Capturar Toda la información');
-                                        return false;
-                                    }
-                                    var cantidad = document.getElementById('Cantidad').value;
-                                    if (cantidad === "") {
-                                        alert('Escriba una cantidad');
-                                        return false;
-                                    }
+                                    return false;
 
                                 }
+                            }
+                            function justNumbers(e)
+                            {
+                                var keynum = window.event ? window.event.keyCode : e.which;
+                                if ((keynum === 8) || (keynum === 46))
+                                    return true;
+                                return /\d/.test(String.fromCharCode(keynum));
+                            }
+
+                            function cambiaLoteCadu(elemento) {
+                                var indice = elemento.selectedIndex;
+                                document.getElementById('SelectCadu').selectedIndex = indice;
+                            }
+
+                            function validaBuscar() {
+                                var Unidad = document.getElementById('ClaCli').value;
+                                if (Unidad === "") {
+                                    alert('Seleccione Unidad');
+                                    return false;
+                                }
+
+                                var FechaEnt = document.getElementById('FechaEnt').value;
+                                if (FechaEnt === "") {
+                                    alert('Seleccione Fecha de Entrega');
+                                    return false;
+                                }
+                                var clave = document.getElementById('ClaPro').value;
+                                if (clave === "") {
+                                    alert('Escriba una Clave');
+                                    return false;
+                                }
+                            }
+
+
+                            function validaSeleccionar() {
+                                var DesSel = document.getElementById('DesSel').value;
+
+                                if (DesSel === "") {
+                                    alert('Favor de Capturar Toda la información');
+                                    return false;
+                                }
+                                var cantidad = document.getElementById('Cantidad').value;
+                                if (cantidad === "") {
+                                    alert('Escriba una cantidad');
+                                    return false;
+                                }
+                                var Unidad = document.getElementById('ClaCli').value;
+                                if (Unidad === "") {
+                                    alert('Seleccione Unidad');
+                                    return false;
+                                }
+                                var FechaEnt = document.getElementById('FechaEnt').value;
+                                if (FechaEnt === "") {
+                                    alert('Seleccione Fecha de Entrega');
+                                    return false;
+                                }
+
+                            }
         </script>
     </body>
 

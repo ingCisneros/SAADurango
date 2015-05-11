@@ -60,7 +60,7 @@
                             <div class="row">
                                 <h4 class="col-lg-4">Fecha Estimada de Recepción</h4>
                                 <div class="col-sm-3"> 
-                                    <input type="date" class="form-control" required name="F_Fecha" />
+                                    <input type="text" class="form-control" readonly="true" id="F_Fecha" required name="F_Fecha" />
                                 </div>
                             </div>
                             <div class="row">
@@ -93,12 +93,28 @@
         <script src="../js/jquery.dataTables.js"></script>
         <script src="../js/dataTables.bootstrap.js"></script>
         <script>
-                            $(document).ready(function() {
+                            $("#F_Fecha").datepicker({
+                                changeMonth: true,
+                                changeYear: true,
+                                dateFormat: 'yy-mm-dd'
+                            });
+
+                            $(document).ready(function () {
                                 $('#Loader').toggle();
                             });
                             function subeOrdenCompra() {
+                              var fecEnt=  $("#F_Fecha").val();
+                              
+                                if(fecEnt==="")
+                                {
+                                
+                                    alert("Seleccionar una fecha de recepción porfavor")
+                                    return false;
+                                }
+                                else{
                                 $('#btnOrdnCompra').attr('disabled', true);
                                 $('#Loader').toggle();
+                            }
                             }
         </script>
 

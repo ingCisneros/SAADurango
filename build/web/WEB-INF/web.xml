@@ -232,6 +232,14 @@
         <servlet-name>UniServlet</servlet-name>
         <servlet-class>servlets.UniServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>descriMed</servlet-name>
+        <servlet-class>servlets.descriMed</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileUploadRural</servlet-name>
+        <servlet-class>rurales.FileUploadRural</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SubirInvenServlet</servlet-name>
         <url-pattern>/inventariosUnidades/SubirInvenServlet</url-pattern>
@@ -463,6 +471,14 @@
     <servlet-mapping>
         <servlet-name>UniServlet</servlet-name>
         <url-pattern>/UniServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>descriMed</servlet-name>
+        <url-pattern>/descriMed</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadRural</servlet-name>
+        <url-pattern>/FileUploadRural</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

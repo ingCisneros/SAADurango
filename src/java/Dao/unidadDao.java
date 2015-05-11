@@ -17,4 +17,8 @@ public interface unidadDao
  public  List<Uni> rutaDiaria();
  public  List<Uni> rutaDiariaDesc(String desc);
  public String tipUni(int uni);
+ public List<Uni> byNomUni(String uniName);
+ public  List<Uni> rural(String desc);
+ public  List<Uni> subUrb(String desc);
+ public  List<Uni> almaJur(String desc);
 }

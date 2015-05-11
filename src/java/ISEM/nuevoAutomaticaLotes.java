@@ -325,10 +325,10 @@ public class nuevoAutomaticaLotes extends HttpServlet {
                         F_User = rsetDatos.getString("F_User");
                         String Ubicacion = "NUEVA";
 
-                        ResultSet rset = con.consulta("select F_Tipo from tb_tipomed where F_ClaPro = '" + F_ClaPro + "'");
+                        /*ResultSet rset = con.consulta("select F_Tipo from tb_tipomed where F_ClaPro = '" + F_ClaPro + "'");
                         while (rset.next()) {
                             Ubicacion = rset.getString(1);
-                        }
+                        }*/
                         try {
                             byte[] a = rsetDatos.getString("F_Obser").getBytes("ISO-8859-1");
                             F_Obser = (new String(a, "UTF-8")).toUpperCase();

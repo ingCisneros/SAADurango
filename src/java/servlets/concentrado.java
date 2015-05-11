@@ -5,7 +5,6 @@
  */
 package servlets;
 
-import Dao.consDao;
 import ImplDao.consDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -87,21 +86,32 @@ public class concentrado extends HttpServlet {
          
               response.sendRedirect("Concentrados/RutaDiaria.jsp");
            
-           }else if(tipCons.equals("normalFec"))
+           }
+           else if(tipCons.equals("RURALES"))
            {
-           
-              
-             
-              String date = request.getParameter("fec");
-              consDao c = new consDaoImpl();
-              
-              sesion.setAttribute("list",c.listFec(date));
-                           
-              
-              
-              response.sendRedirect("Concentrados/RutaDiaria.jsp");
+                     
+              response.sendRedirect("Concentrados/Rurales.jsp");
            
            }
+           else if(tipCons.equals("SUB-URBANOS"))
+           {
+                     
+              response.sendRedirect("Concentrados/subUrbanos.jsp");
+           
+           }
+           else if(tipCons.equals("CARAVANAS"))
+           {
+                     
+              response.sendRedirect("Concentrados/caravanas.jsp");
+           
+           }
+           else if(tipCons.equals("ALM. JURIS"))
+           {
+                     
+              response.sendRedirect("Concentrados/almJuris.jsp");
+           
+           }
+        
         
         
         

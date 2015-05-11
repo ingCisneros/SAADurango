@@ -9,12 +9,10 @@ import Dao.consDao;
 import ImplDao.consDaoImpl;
 import Modelos.cons;
 import clases.unirPdf;
-import com.lowagie.tools.ConcatPdf;
 import conn.ConectionDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
-import conn.conection;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,20 +22,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 /**
@@ -188,6 +181,8 @@ public class consReport extends HttpServlet {
                 Connection conexion;
                 String pad = "";
                 String range = "";
+                String [] folNew = request.getParameterValues("folios[]");
+                int longitud = folNew.length;
                 try {
 
                     Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -197,22 +192,22 @@ public class consReport extends HttpServlet {
 
                     cons C = new cons();
 
-                    for (int i = 0; i < c.size(); i++) {
+                    for (int i = 0; i < longitud; i++) {
 
-                        C = (cons) c.get(i);
-
+                       
+                        
                         JasperReport reporte = (JasperReport) JRLoader.loadObject(getServletContext().getRealPath("/reportes/concentradoGlobal.jasper"));
-
+                        
                         Map parameters = new HashMap();
-                        parameters.put("idFact", C.getIdFac());
-
+                        parameters.put("idFact", folNew[i]);
+                        System.out.println(folNew[i]);
                         pad = getServletContext().getRealPath("/ConsPdf/");
                         System.out.println(pad);
 
                         JasperPrint jasperPrint = JasperFillManager.fillReport(reporte, parameters, conexion);
-                        JasperExportManager.exportReportToPdfFile(jasperPrint, pad + "Folio-" + C.getIdFac() + "");
+                        JasperExportManager.exportReportToPdfFile(jasperPrint, pad + "Folio-" +folNew[i]+ "");
                         range = pad;
-                        pdfs.add(new FileInputStream(pad + "Folio-" + C.getIdFac() + ""));
+                        pdfs.add(new FileInputStream(pad + "Folio-" + folNew[i] + ""));
 
                     }
 
@@ -220,19 +215,20 @@ public class consReport extends HttpServlet {
 
                     unirPdf.concatPDFs(pdfs, output, true);
 
-                    for (int o = 0; o < c.size(); o++) {
-
-                        C = (cons) c.get(o);
+                    for (int o = 0; o < longitud; o++) {
+                        System.out.println(folNew[o]);
+                       
 
                         pad = getServletContext().getRealPath("/ConsPdf/");
 
-                        File archivo = new File(pad + "Folio-" + C.getIdFac() + "");
+                        File archivo = new File(pad + "Folio-" + folNew[o] + "");
                         archivo.delete();
-
+                        
+                        
                     }
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+                   System.out.println(e.getMessage()); 
                 }
                 break;
 
